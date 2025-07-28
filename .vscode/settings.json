@@ -1,0 +1,7 @@
+{
+	"C_Cpp.errorSquiggles": "disabled",
+	"files.associations": {
+		"mlx.h": "c",
+		"fractol.h": "c"
+	}
+}

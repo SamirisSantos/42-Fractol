@@ -15,20 +15,21 @@
 int	main()
 {
 	t_mlx_data	data;
-	t_data	img;
 
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (MLX_ERROR);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Fractol");
+	data.color = 0xFF0000;
 	if (data.win_ptr == NULL)
 	{
 		mlx_destroy_display(data.mlx_ptr);
  		free(data.mlx_ptr);
 		return (MLX_ERROR);
 	}
-	mlx_key_hook(data.win_ptr, handle_input,&data);
-	mlx_hook(data.win_ptr, 17, 0, close, &data);
-	
+	mlx_string_put(data.mlx_ptr, data.win_ptr, 200, 200, data.color, "Hello world");
+	mlx_key_hook(data.win_ptr, handle_input,&data);	
+	mlx_hook(data.win_ptr, 17, 0, handle_close, &data);
 	mlx_loop(data.mlx_ptr);
+	return (0);
 }

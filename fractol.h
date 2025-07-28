@@ -29,17 +29,10 @@ typedef struct s_mlx_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		color;
 }	t_mlx_data;
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_data;
-
-int	close(t_mlx_data *data);
+int	handle_close(t_mlx_data *data);
 int	handle_input(int keysym, t_mlx_data *data);
 
 #endif
