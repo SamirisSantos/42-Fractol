@@ -10,3 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FRACTOL_H
+# define FRACTOL_H
+
+#include "minilibx-linux/mlx.h"
+#include <X11/keysym.h>
+#include <X11/X.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define MALLOC_ERROR	1
+#define MLX_ERROR	1
+// Tamanho da janela
+#define WIN_WIDTH	800
+#define WIN_HEIGHT	600
+
+typedef struct s_mlx_data
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+}	t_mlx_data;
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
+
+int	close(t_mlx_data *data);
+int	handle_input(int keysym, t_mlx_data *data);
+
+#endif
