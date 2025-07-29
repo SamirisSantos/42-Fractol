@@ -16,7 +16,13 @@
 Formula do Fractal Mandelbrot
 Z(n+1) = Z(n)^2 + C
 Z0 = 0 
+Z é um número complexo
 C (um número complexo que representa cada ponto no plano)
 O ponto C pertence ao conjunto de Mandelbrot se a sequência Z(n) 
 nao tende ao infinito
+
+Formula do Fractal Julia
+Z(n+1) = Z(n)^2 + C
+
+No Julia, você fixa um valor de C e varia o valor inicial Z0
 */
