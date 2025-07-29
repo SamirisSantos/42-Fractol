@@ -18,6 +18,8 @@
 #include <X11/X.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <math.h>
 
 #define MALLOC_ERROR	1
 #define MLX_ERROR	1
@@ -25,14 +27,18 @@
 #define WIN_WIDTH	800
 #define WIN_HEIGHT	600
 
-typedef struct s_mlx_data
+typedef struct s_fractol
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	void	*img_ptr;
+	char	*img_data;
 	int		color;
-}	t_mlx_data;
+	int		fractal_type;
+}	t_fractol;
 
-int	handle_close(t_mlx_data *data);
-int	handle_input(int keysym, t_mlx_data *data);
+int	handle_close(t_fractol *data);
+int	handle_mouse(int button, int x, int y, t_fractol *f);
+int	handle_input(int keysym, t_fractol *data);
 
 #endif

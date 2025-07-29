@@ -6,13 +6,13 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:47:07 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/07/28 16:17:46 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:17:02 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	handle_input(int keysym, t_mlx_data *data)
+int	handle_input(int keysym, t_fractol *data)
 {
 	if (keysym == XK_Escape)
 	{
@@ -26,7 +26,7 @@ int	handle_input(int keysym, t_mlx_data *data)
 	return (0);
 }
 
-int	handle_close(t_mlx_data *data)
+int	handle_close(t_fractol *data)
 {
 	printf("Window close (X) pressed. Exiting.\n");
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
