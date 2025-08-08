@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:47:07 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/07/29 16:17:02 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/08/08 14:59:32 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,8 @@ int	handle_close(t_fractol *data)
 	exit(0);
 	return (0);
 }
+
+// int	handle_mouse(int button, int x, int y, t_fractol *f)
+// {
+	
+// }

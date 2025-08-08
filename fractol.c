@@ -43,7 +43,7 @@ int	main()
 	}
 
 	// Coloca a imagem na janela, na posição (100, 100)
-	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img, 100, 100);
+	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img, 100, 300);
 
 	mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Hello world");
 	mlx_key_hook(data.win_ptr, handle_input,&data);	
