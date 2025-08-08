@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:47:07 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/08/08 14:59:32 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:47:32 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,19 @@ int	handle_close(t_fractol *data)
 	return (0);
 }
 
-// int	handle_mouse(int button, int x, int y, t_fractol *f)
-// {
-	
-// }
+int	handle_mouse(int button, int x, int y, t_fractol *f)
+{
+	(void)x;
+	(void)y;
+
+	if(button == 4)
+	{
+		
+		printf("Zoom in\n");
+	}
+	else if (button == 5)
+	{
+		 printf("Zoom out\n");
+	}
+	return (0);
+}

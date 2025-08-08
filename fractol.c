@@ -48,6 +48,7 @@ int	main()
 	mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Hello world");
 	mlx_key_hook(data.win_ptr, handle_input,&data);	
 	mlx_hook(data.win_ptr, 17, 0, handle_close, &data);
+	mlx_mouse_hook(data.win_ptr, handle_mouse, NULL);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }

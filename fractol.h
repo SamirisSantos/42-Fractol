@@ -38,7 +38,7 @@ typedef struct s_fractol
 }	t_fractol;
 
 int	handle_close(t_fractol *data);
-int	handle_mouse(int button, int x, int y, t_fractol *f);
 int	handle_input(int keysym, t_fractol *data);
+int	handle_mouse(int button, int x, int y, t_fractol *f);
 
 #endif
