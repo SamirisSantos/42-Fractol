@@ -32,7 +32,7 @@ No Julia, você fixa um valor de C e varia o valor inicial Z0
 // 	if()
 // }
 
-void	render_fractal(t_fractol *f)
+void	render_julia(t_fractol *f)
 {
-	
+
 }

@@ -36,15 +36,29 @@
 #define SCROLL_UP 	4
 #define SCROLL_DOWN 5
 
+// JULIA SET DEFAULT - STARFISH
+#define JULIA_STARFISH_REAL		-0.3740
+#define JULIA_STARFISH_IMAG		-0.6597
+
 typedef struct s_fractol
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-	char	*img_data;
-	int		color;
-	int		fractal_type;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img_ptr;
+	char		*img_data;
+	int			color;
+	int			fractal_type;
+	t_complex	julia;
 }	t_fractol;
+
+typedef struct s_complex
+{
+	//      x-axis
+	double	real_nbr;
+	//      y-axis
+	double	im_nbr;
+}	t_complex;
+
 
 int	handle_close(t_fractol *data);
 int	handle_input(int keysym, t_fractol *data);

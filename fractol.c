@@ -55,7 +55,31 @@ int	main(int argc, char **argv)
 	if(ft_strcmp(argv[1], "mandelbrot") == 0)
 		mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Mandelbrot");
 	if(ft_strcmp(argv[1], "julia") == 0)
+	{
 		mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Julia");
+
+		t_complex	z;
+		t_complex	c;
+		double		temp_real;
+
+		z.real_nbr = 0;
+		z.im_nbr = 0;
+
+		c.real_nbr = 0.25;
+		c.im_nbr = 0.4;
+
+		for( int i = 0; i < 10, ++i)
+		{
+			// Formula do Fractal Julia -> Z(n+1) = Z(n)^2 + C
+			temp_real = (z.real_nbr * z.real_nbr) - (z.im_nbr * z.im_nbr);
+			z.im_nbr = 2 * z.real_nbr * z.i;
+			z.real_nbr = temp_real;
+
+			z.real_nbr = z.real_nbr + c.real_nbr;
+			z.im_nbr = z.im_nbr + c.im_nbr;
+		}
+	}
+		
 
 	mlx_key_hook(data.win_ptr, handle_input,&data);	
 	mlx_hook(data.win_ptr, 17, 0, handle_close, &data);
