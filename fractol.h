@@ -23,9 +23,18 @@
 
 #define MALLOC_ERROR	1
 #define MLX_ERROR	1
-// Tamanho da janela
+// Window size
 #define WIN_WIDTH	800
 #define WIN_HEIGHT	600
+
+// KEYS 
+#define ESC_KEY		XK_Escape
+#define UP 			65362
+#define DOWN 		65364
+
+// MOUSE
+#define SCROLL_UP 	4
+#define SCROLL_DOWN 5
 
 typedef struct s_fractol
 {
@@ -41,4 +50,5 @@ int	handle_close(t_fractol *data);
 int	handle_input(int keysym, t_fractol *data);
 int	handle_mouse(int button, int x, int y, t_fractol *f);
 
+int	ft_strcmp(const char *s1, const char *s2);
 #endif

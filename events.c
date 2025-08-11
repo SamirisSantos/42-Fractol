@@ -14,7 +14,7 @@
 
 int	handle_input(int keysym, t_fractol *data)
 {
-	if (keysym == XK_Escape)
+	if (keysym == ESC_KEY)
 	{
 		printf("The %d key pressed. Exiting.\n", keysym);
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
@@ -22,6 +22,11 @@ int	handle_input(int keysym, t_fractol *data)
 		free(data->mlx_ptr);
 		exit(1);
 	}
+	if(keysym == UP)
+		printf("Zoom in\n");
+	if(keysym == DOWN)
+		printf("Zoom out\n");
+
 	printf("The %d key has been pressed\n", keysym);
 	return (0);
 }
@@ -41,12 +46,12 @@ int	handle_mouse(int button, int x, int y, t_fractol *f)
 	(void)x;
 	(void)y;
 
-	if(button == 4)
+	if(button == SCROLL_UP)
 	{
 		
 		printf("Zoom in\n");
 	}
-	else if (button == 5)
+	else if (button == SCROLL_DOWN)
 	{
 		 printf("Zoom out\n");
 	}

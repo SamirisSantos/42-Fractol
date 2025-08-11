@@ -26,3 +26,13 @@ Z(n+1) = Z(n)^2 + C
 
 No Julia, você fixa um valor de C e varia o valor inicial Z0
 */
+
+// void change_color(int keysym, t_fractol *data)
+// {
+// 	if()
+// }
+
+void	render_fractal(t_fractol *f)
+{
+	
+}
