@@ -40,17 +40,6 @@
 #define JULIA_STARFISH_REAL		-0.3740
 #define JULIA_STARFISH_IMAG		-0.6597
 
-typedef struct s_fractol
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img_ptr;
-	char		*img_data;
-	int			color;
-	int			fractal_type;
-	t_complex	julia;
-}	t_fractol;
-
 typedef struct s_complex
 {
 	//      x-axis
@@ -60,9 +49,33 @@ typedef struct s_complex
 }	t_complex;
 
 
+typedef struct s_fractol
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img_ptr;
+	char		*img_data;
+	int			color;
+	int			max_iter;
+	//informaçao da imagem
+	int		bpp; //bits por pixel
+	int		line_len; //bytes por linha
+	int		endian; //endianess da imagem dados em multi-bytes
+	// Zoom, eixo x e y
+	double		zoom;
+	double		offset_x;
+	double		offset_y;
+	//fractal
+	int			fractal_type;
+	t_complex	julia;
+}	t_fractol;
+
+
+
 int	handle_close(t_fractol *data);
 int	handle_input(int keysym, t_fractol *data);
 int	handle_mouse(int button, int x, int y, t_fractol *f);
 
 int	ft_strcmp(const char *s1, const char *s2);
+void	ft_putstr(char *s);
 #endif

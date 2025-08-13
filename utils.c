@@ -17,6 +17,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	int	i;
 
 	i = 0;
+	if(s1 == NULL || s2 == NULL)
+		return (0);
 	while (s1[i] == s2[i])
 	{
 		if (s1[i] == '\0' || s2[i] == '\0')
@@ -24,4 +26,18 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	}
 	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
+}
+
+
+
+void	ft_putstr(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		write(1,&s[i], 1);
+		i++;
+	}
 }

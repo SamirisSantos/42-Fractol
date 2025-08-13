@@ -12,6 +12,14 @@
 
 #include "fractol.h"
 
+int	menu_helps(void)
+{
+	ft_putstr("Choose a fractol:\n");
+	ft_putstr("Mandelbrot: ./fractol mandelbrot\n");
+	ft_putstr("Julia:      ./fractol julia <re> <im>\n");
+	exit(EXIT_FAILURE);
+}
+
 int	main(int argc, char **argv)
 {
 	t_fractol	data;
@@ -45,18 +53,18 @@ int	main(int argc, char **argv)
 	// Coloca a imagem na janela, na posição (100, 100)
 	// mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img, 100, 300);
 
-	if(argc < 2)
+	if(argc == 2 || argc == 4)
 	{
-		printf("Escolha um fractol: \n");
-		printf("Mandelbrot: ./fractol mandelbrot \n");
-		printf("Julia: ./fractol julia re im \n");
-		exit(EXIT_FAILURE);
-	}
-	if(ft_strcmp(argv[1], "mandelbrot") == 0)
-		mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Mandelbrot");
-	if(ft_strcmp(argv[1], "julia") == 0)
-	{
-		mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Julia");
+		if(ft_strcmp(argv[1], "mandelbrot") == 0)
+		{
+			mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Mandelbrot");
+		}
+		else if(ft_strcmp(argv[1], "julia") == 0)
+		{
+			mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Julia");
+		}else
+			menu_helps();
+
 
 		t_complex	z;
 		t_complex	c;
@@ -68,17 +76,18 @@ int	main(int argc, char **argv)
 		c.real_nbr = 0.25;
 		c.im_nbr = 0.4;
 
-		for( int i = 0; i < 10, ++i)
+		for( int i = 0; i < 10; ++i)
 		{
 			// Formula do Fractal Julia -> Z(n+1) = Z(n)^2 + C
 			temp_real = (z.real_nbr * z.real_nbr) - (z.im_nbr * z.im_nbr);
-			z.im_nbr = 2 * z.real_nbr * z.i;
+			z.im_nbr = 2 * z.real_nbr * z.im_nbr;
 			z.real_nbr = temp_real;
 
 			z.real_nbr = z.real_nbr + c.real_nbr;
 			z.im_nbr = z.im_nbr + c.im_nbr;
 		}
-	}
+	}else
+		menu_helps();
 		
 
 	mlx_key_hook(data.win_ptr, handle_input,&data);	
