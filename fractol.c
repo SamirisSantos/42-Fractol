@@ -28,12 +28,14 @@ int	main(int argc, char **argv)
 	int		img_width;
 	int		img_height;
 	void	*img;
+	t_fractol	fractal;
+	data.color = 0xFF0000;
+
 
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (MLX_ERROR);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Fractol");
-	data.color = 0xFF0000;
 	if (data.win_ptr == NULL)
 	{
 		mlx_destroy_display(data.mlx_ptr);
@@ -41,27 +43,19 @@ int	main(int argc, char **argv)
 		return (MLX_ERROR);
 	}
 
-	// img = mlx_xpm_file_to_image(data.mlx_ptr, relative_path, &img_width, &img_height);
-	// if (!img)
-	// {
-	// 	printf("Erro ao carregar imagem: %s\n", relative_path);
-	// 	mlx_destroy_window(data.mlx_ptr, data.win_ptr);
-	// 	free(data.mlx_ptr);
-	// 	return (1);
-	// }
-
-	// Coloca a imagem na janela, na posição (100, 100)
-	// mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img, 100, 300);
-
 	if(argc == 2 || argc == 4)
 	{
 		if(ft_strcmp(argv[1], "mandelbrot") == 0)
 		{
 			mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Mandelbrot");
+			fractol_init(&fractol);
+			render_mand(&fractol);
 		}
 		else if(ft_strcmp(argv[1], "julia") == 0)
 		{
 			mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Julia");
+			fractol_init(&fractol);
+			render_julia(&fratol);
 		}else
 			menu_helps();
 

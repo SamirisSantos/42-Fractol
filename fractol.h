@@ -48,19 +48,28 @@ typedef struct s_complex
 	double	im_nbr;
 }	t_complex;
 
-
-typedef struct s_fractol
+typedef struct s_img
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
+	// points for image
 	void		*img_ptr;
 	char		*img_data;
-	int			color;
-	int			max_iter;
 	//informaçao da imagem
 	int		bpp; //bits por pixel
 	int		line_len; //bytes por linha
 	int		endian; //endianess da imagem dados em multi-bytes
+}	t_img;
+
+
+
+typedef struct s_fractol
+{	
+	void	*mlx_ptr; // mlx_init()
+	void	*win_ptr; // mlx_new_window()
+	t_img	img;
+	
+	int			color;
+	int			max_iter;
+	
 	// Zoom, eixo x e y
 	double		zoom;
 	double		offset_x;
