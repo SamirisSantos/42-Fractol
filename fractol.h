@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:55:13 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/07/22 16:55:13 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/08/25 14:43:12 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@
 #include <unistd.h>
 #include <math.h>
 
-#define MALLOC_ERROR	1
-#define MLX_ERROR	1
+#define MALLOC_ERROR	"Memory error"
 // Window size
 #define WIN_WIDTH	800
-#define WIN_HEIGHT	600
+#define WIN_HEIGHT	800
 
 // KEYS 
 #define ESC_KEY		XK_Escape
@@ -51,8 +50,8 @@ typedef struct s_complex
 typedef struct s_img
 {
 	// points for image
-	void		*img_ptr;
-	char		*img_data;
+	void		*img_ptr; //pointer to image struct
+	char		*img_data; //pointer to the actual pixels poixels_ptr
 	//informaçao da imagem
 	int		bpp; //bits por pixel
 	int		line_len; //bytes por linha
@@ -63,6 +62,7 @@ typedef struct s_img
 
 typedef struct s_fractol
 {	
+	char	*name;
 	void	*mlx_ptr; // mlx_init()
 	void	*win_ptr; // mlx_new_window()
 	t_img	img;
@@ -79,12 +79,18 @@ typedef struct s_fractol
 	t_complex	julia;
 }	t_fractol;
 
+void	fractol_init(t_fractol *f);
 
+int		handle_close(t_fractol *data);
+int		handle_input(int keysym, t_fractol *data);
+void	handle_pixel(int x, int y, t_fractol *fractol);
+int		handle_mouse(int button, int x, int y, t_fractol *f);
 
-int	handle_close(t_fractol *data);
-int	handle_input(int keysym, t_fractol *data);
-int	handle_mouse(int button, int x, int y, t_fractol *f);
-
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr(char *s);
+
+void	mandel_render(t_fractol *fractol);
+
+double	map(double unscaled_num, double new_min, double new_max, double old_max);
+
 #endif

@@ -48,12 +48,11 @@ int	handle_mouse(int button, int x, int y, t_fractol *f)
 	// intervalo fractal  Mandelbrot e Julia: [-2, 2]
 	if(button == SCROLL_UP)
 	{
-		
 		printf("Zoom in\n");
 	}
 	else if (button == SCROLL_DOWN)
 	{
-		 printf("Zoom out\n");
+		printf("Zoom out\n");
 	}
 	return (0);
 }

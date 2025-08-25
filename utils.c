@@ -34,7 +34,7 @@ void	ft_putstr(char *s)
 
 	i = 0;
 	if(s == NULL)
-		return (0);
+		return ;
 	while (s[i])
 	{
 		write(1,&s[i], 1);

@@ -22,40 +22,21 @@ int	menu_helps(void)
 
 int	main(int argc, char **argv)
 {
-	t_fractol	data;
-	// teste de imagem
-	//char	*relative_path = "./minilibx-linux/test/open30.xpm";
-	int		img_width;
-	int		img_height;
-	void	*img;
 	t_fractol	fractal;
-	data.color = 0xFF0000;
-
-
-	data.mlx_ptr = mlx_init();
-	if (data.mlx_ptr == NULL)
-		return (MLX_ERROR);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Fractol");
-	if (data.win_ptr == NULL)
-	{
-		mlx_destroy_display(data.mlx_ptr);
- 		free(data.mlx_ptr);
-		return (MLX_ERROR);
-	}
 
 	if(argc == 2 || argc == 4)
 	{
 		if(ft_strcmp(argv[1], "mandelbrot") == 0)
 		{
-			mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Mandelbrot");
-			fractol_init(&fractol);
-			render_mand(&fractol);
+			fractal.name = "Mandelbrot";
+			fractol_init(&fractal);
+			// mandel_render(&fractal);
 		}
 		else if(ft_strcmp(argv[1], "julia") == 0)
 		{
-			mlx_string_put(data.mlx_ptr, data.win_ptr, (WIN_WIDTH/2) - 90, (WIN_HEIGHT/2), data.color, "Julia");
-			fractol_init(&fractol);
-			render_julia(&fratol);
+			fractal.name = "Julia";
+			fractol_init(&fractal);
+			// render_julia(&fractal);
 		}else
 			menu_helps();
 
@@ -84,9 +65,9 @@ int	main(int argc, char **argv)
 		menu_helps();
 		
 
-	mlx_key_hook(data.win_ptr, handle_input,&data);	
-	mlx_hook(data.win_ptr, 17, 0, handle_close, &data);
-	mlx_mouse_hook(data.win_ptr, handle_mouse, NULL);
-	mlx_loop(data.mlx_ptr);
+	mlx_key_hook(fractal.win_ptr, handle_input,&fractal);	
+	mlx_hook(fractal.win_ptr, 17, 0, handle_close, &fractal);
+	mlx_mouse_hook(fractal.win_ptr, handle_mouse, NULL);
+	mlx_loop(fractal.mlx_ptr);
 	return (0);
 }
