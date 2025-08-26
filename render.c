@@ -30,21 +30,42 @@
 	Y vai de 2 até -2 (topo → baixo).
  */
 
+static void	ft_pixel_put(int x, int y, t_img *img, int color)
+{
+	int	offset;
+
+	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
+		return;
+	offset = (y * img->line_len) + (x * (img->bpp / 8));
+	*(unsigned int *)(img->img_data + offset) = (unsigned int)color;
+}
 
 void	handle_pixel(int x, int y, t_fractol *fractol)
 {
 	t_complex	z;
 	t_complex	c;
+	int			i;
+	int			color;
 	
-	z.real_nbr = 0;
-	z.im_nbr = 0;
-	c.real_nbr = map(x, -2, 2, WIN_WIDTH);
-	c.im_nbr = map(y, 2, -2, WIN_HEIGHT);
+	z.real_nbr = 0.0;
+	z.im_nbr = 0.0;
+	c.real_nbr = (map(x, -2, 2, WIN_WIDTH) * fractol->zoom) + fractol->offset_x;
+	c.im_nbr   = (map(y,  2, -2, WIN_HEIGHT) * fractol->zoom) + fractol->offset_y;
+	i = 0;
 
-	while()
+	while (i < fractol->defined_img)
 	{
-		
+		z = sum_nbr(square_nbr(z), c);
+		if ((z.real_nbr * z.real_nbr + z.im_nbr * z.im_nbr) > fractol->not_valid)
+		{
+			color = map(i, BLACK, WHITE, fractol->defined_img);
+			ft_pixel_put(x, y, &fractol->img, color);
+			return;
+		}
+		i++;
 	}
+	/* pontos dentro do conjunto (não escaparam) */
+	ft_pixel_put(x, y, &fractol->img, PURPLE);
 }
 
 void	mandel_render(t_fractol *fractol)
@@ -52,15 +73,17 @@ void	mandel_render(t_fractol *fractol)
 	int	x;
 	int	y;
 
-	y = -1;
-	while(y < WIN_HEIGHT)
+	y = 0;
+	while (y < WIN_HEIGHT)
 	{
-		x = -1;
-		while(x < WIN_WIDTH)
+		x = 0;
+		while (x < WIN_WIDTH)
 		{
 			handle_pixel(x, y, fractol);
 			x++;
 		}
 		y++;
 	}
+	mlx_put_image_to_window(fractol->mlx_ptr, fractol->win_ptr,
+		fractol->img.img_ptr, 0, 0);
 }

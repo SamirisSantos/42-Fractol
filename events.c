@@ -12,32 +12,48 @@
 
 #include "fractol.h"
 
-int	handle_input(int keysym, t_fractol *data)
+static void	fractol_destroy(t_fractol *f)
+{
+	if (f->img.img_ptr)
+		mlx_destroy_image(f->mlx_ptr, f->img.img_ptr);
+	if (f->win_ptr)
+		mlx_destroy_window(f->mlx_ptr, f->win_ptr);
+	if (f->mlx_ptr)
+	{
+		mlx_destroy_display(f->mlx_ptr);
+		free(f->mlx_ptr);
+	}
+	exit(EXIT_SUCCESS);
+}
+
+int	handle_input(int keysym, t_fractol *f)
 {
 	if (keysym == ESC_KEY)
 	{
 		printf("The %d key pressed. Exiting.\n", keysym);
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
-		free(data->mlx_ptr);
-		exit(1);
+		fractol_destroy(f);
 	}
-	if(keysym == UP)
-		printf("Zoom in\n");
-	if(keysym == DOWN)
-		printf("Zoom out\n");
-
+	else if (keysym == LEFT)
+			f->offset_x += 0.5; // f->zoom;
+	else if (keysym == RIGHT)
+			f->offset_x -= 0.5; // f->zoom;
+	else if (keysym == UP)
+			f->offset_y -= 0.5; // f->zoom;
+	else if (keysym == DOWN)
+			f->offset_y += 0.5; // f->zoom;
+	else if (keysym == PLUS || keysym == 61)
+			f->defined_img += 10;
+	else if (keysym == MINUS)
+			f->defined_img -= 10;
+	mandel_render(f);
 	printf("The %d key has been pressed\n", keysym);
 	return (0);
 }
 
-int	handle_close(t_fractol *data)
+int	handle_close(t_fractol *f)
 {
 	printf("Window close (X) pressed. Exiting.\n");
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-	exit(0);
+	fractol_destroy(f);
 	return (0);
 }
 
@@ -48,11 +64,14 @@ int	handle_mouse(int button, int x, int y, t_fractol *f)
 	// intervalo fractal  Mandelbrot e Julia: [-2, 2]
 	if(button == SCROLL_UP)
 	{
+		f->zoom *= 0.95;
 		printf("Zoom in\n");
 	}
 	else if (button == SCROLL_DOWN)
 	{
+		f->zoom *= 1.05;
 		printf("Zoom out\n");
 	}
+	mandel_render(f);
 	return (0);
 }
