@@ -25,7 +25,7 @@ double	map(double coord, double new_min, double new_max, double old_max)
 
 t_complex	sum_nbr(t_complex z1, t_complex z2)
 {
-	t_complex result;
+	t_complex	result;
 
 	result.real_nbr = z1.real_nbr + z2.real_nbr;
 	result.im_nbr = z1.im_nbr + z2.im_nbr;
@@ -37,9 +37,10 @@ t_complex	sum_nbr(t_complex z1, t_complex z2)
 	real number = (x^2 - y^2)
 	imag number = (2xyi);
 */
+
 t_complex	square_nbr(t_complex z)
 {
-	t_complex result;
+	t_complex	result;
 
 	result.real_nbr = (z.real_nbr * z.real_nbr) - (z.im_nbr * z.im_nbr);
 	result.im_nbr = 2 * (z.real_nbr * z.im_nbr);

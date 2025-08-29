@@ -88,7 +88,7 @@ int	handle_mouse(int button, int x, int y, t_fractol *f)
 			zoom_factor = 1.05;
 			ft_putstr("Zoom out\n");
 		}
-		f->zoom *=zoom_factor;
+		f->zoom *= zoom_factor;
 		f->offset_x = mouse_re - (map(x, -2, 2, WIN_WIDTH) * f->zoom);
 		f->offset_y = mouse_im - (map(y, 2, -2, WIN_HEIGHT) * f->zoom);
 		render(f);
