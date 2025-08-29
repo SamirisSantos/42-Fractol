@@ -6,7 +6,7 @@
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:47:07 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/08/08 16:47:32 by sade-ara         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:24:41 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,28 @@ int	handle_close(t_fractol *f)
 
 int	handle_mouse(int button, int x, int y, t_fractol *f)
 {
-	(void)x;
-	(void)y;
-	if (button == SCROLL_UP)
-	{
-		f->zoom *= 0.95;
-		ft_putstr("Zoom in\n");
-	}
-	else if (button == SCROLL_DOWN)
-	{
-		f->zoom *= 1.05;
-		ft_putstr("Zoom out\n");
-	}
-	render(f);
-	return (0);
-}
+	double	mouse_re;
+	double	mouse_im;
+	double	zoom_factor;
 
-int	mouse_julia(int x, int y, t_fractol *f)
-{
-	if(ft_strcmp(f->name, "Julia") == 0)
+	if (button == SCROLL_UP || button == SCROLL_DOWN)
 	{
-		f->julia.real_nbr = (map(x, -2, 2, 0, WIN_WIDTH) * f->zoom) + f->offset_x;
-		f->julia.im = (map(y, 2, -2, 0, WIN_HEIGHT) * f->zoom) + f->offset_y;
-		render_julia(f);
+		mouse_re = (map(x, -2, 2, WIN_WIDTH) * f->zoom) + f->offset_x;
+		mouse_im = (map(y, 2, -2, WIN_HEIGHT) * f->zoom) + f->offset_y;
+		if (button == SCROLL_UP)
+		{
+			zoom_factor = 0.95;
+			ft_putstr("Zoom in\n");
+		}
+		else
+		{
+			zoom_factor = 1.05;
+			ft_putstr("Zoom out\n");
+		}
+		f->zoom *=zoom_factor;
+		f->offset_x = mouse_re - (map(x, -2, 2, WIN_WIDTH) * f->zoom);
+		f->offset_y = mouse_im - (map(y, 2, -2, WIN_HEIGHT) * f->zoom);
+		render(f);
 	}
 	return (0);
 }

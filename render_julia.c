@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_julia.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sade-ara <sade-ara@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/25 15:05:58 by sade-ara          #+#    #+#             */
-/*   Updated: 2025/08/25 15:05:58 by sade-ara         ###   ########.fr       */
+/*   Created: 2025/08/29 16:25:54 by sade-ara          #+#    #+#             */
+/*   Updated: 2025/08/29 16:25:54 by sade-ara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,14 @@ void	render_julia(t_fractol *fractol)
 	mlx_put_image_to_window(fractol->mlx_ptr, fractol->win_ptr,
 		fractol->img.img_ptr, 0, 0);
 }
+
+// int	mouse_julia(int x, int y, t_fractol *f)
+// {
+// 	if(ft_strcmp(f->name, "Julia") == 0)
+// 	{
+// 		f->julia.real_nbr = (map(x, -2, 2, 0, WIN_WIDTH) * f->zoom) + f->offset_x;
+// 		f->julia.im = (map(y, 2, -2, 0, WIN_HEIGHT) * f->zoom) + f->offset_y;
+// 		render_julia(f);
+// 	}
+// 	return (0);
+// }
