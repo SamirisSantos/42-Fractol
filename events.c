@@ -12,6 +12,14 @@
 
 #include "fractol.h"
 
+static void	render(t_fractol *f)
+{
+	if (ft_strcmp(f->name, "Mandelbrot") == 0)
+		mandel_render(f);
+	else if (ft_strcmp(f->name, "Julia") == 0)
+		render_julia(f);
+}
+
 static void	fractol_destroy(t_fractol *f)
 {
 	if (f->img.img_ptr)
@@ -29,30 +37,33 @@ static void	fractol_destroy(t_fractol *f)
 int	handle_input(int keysym, t_fractol *f)
 {
 	if (keysym == ESC_KEY)
-	{
-		printf("The %d key pressed. Exiting.\n", keysym);
 		fractol_destroy(f);
-	}
-	else if (keysym == LEFT)
-			f->offset_x += 0.5; // f->zoom;
-	else if (keysym == RIGHT)
-			f->offset_x -= 0.5; // f->zoom;
-	else if (keysym == UP)
-			f->offset_y -= 0.5; // f->zoom;
-	else if (keysym == DOWN)
-			f->offset_y += 0.5; // f->zoom;
+	else if (keysym == LEFT || keysym == A_KEY)
+		f->offset_x += (0.5 * f->zoom);
+	else if (keysym == RIGHT || keysym == D_KEY)
+		f->offset_x -= (0.5 * f->zoom);
+	else if (keysym == UP || keysym == S_KEY)
+		f->offset_y -= (0.5 * f->zoom);
+	else if (keysym == DOWN || keysym == W_KEY)
+		f->offset_y += (0.5 * f->zoom);
 	else if (keysym == PLUS || keysym == 61)
-			f->defined_img += 10;
+		f->defined_img += 10;
 	else if (keysym == MINUS)
-			f->defined_img -= 10;
-	mandel_render(f);
+		f->defined_img -= 10;
+	else if (keysym == O_KEY) // Cor original
+		f->color_mode = 0;
+	else if (keysym == P_KEY) // Cor psicodélico
+		f->color_mode = 1;
+	else if (keysym == I_KEY) // Cor outro
+		f->color_mode = 2;
+	render(f);
 	printf("The %d key has been pressed\n", keysym);
 	return (0);
 }
 
 int	handle_close(t_fractol *f)
 {
-	printf("Window close (X) pressed. Exiting.\n");
+	ft_putstr("Window close (X) pressed. Exiting.\n");
 	fractol_destroy(f);
 	return (0);
 }
@@ -61,17 +72,24 @@ int	handle_mouse(int button, int x, int y, t_fractol *f)
 {
 	(void)x;
 	(void)y;
-	// intervalo fractal  Mandelbrot e Julia: [-2, 2]
-	if(button == SCROLL_UP)
+	if (button == SCROLL_UP)
 	{
 		f->zoom *= 0.95;
-		printf("Zoom in\n");
+		ft_putstr("Zoom in\n");
 	}
 	else if (button == SCROLL_DOWN)
 	{
 		f->zoom *= 1.05;
-		printf("Zoom out\n");
+		ft_putstr("Zoom out\n");
 	}
-	mandel_render(f);
+	render(f);
 	return (0);
 }
+
+// int	mouse_julia(int x, int y, t_fractol *f)
+// {
+// 	if(ft_strcmp(f->name, "julia") == 0)
+// 	{
+// 		f->julia.real_nbr = map(x, -2)
+// 	}
+// }

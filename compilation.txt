@@ -1,4 +1,4 @@
-gcc fractol.c -Lminilibx-linux -lmlx_Linux -o fractol -lX11 -lXext
+gcc fractol.c -Lminilibx-linux -lmlx_Linux -o fractol -lX11 -lXext -lm
 
 Do make into the minilibx
 

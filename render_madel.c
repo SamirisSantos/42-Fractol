@@ -30,7 +30,7 @@
 	Y vai de 2 até -2 (topo → baixo).
  */
 
-static void	ft_pixel_put(int x, int y, t_img *img, int color)
+void	ft_pixel_put(int x, int y, t_img *img, int color)
 {
 	int	offset;
 
@@ -40,7 +40,7 @@ static void	ft_pixel_put(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->img_data + offset) = (unsigned int)color;
 }
 
-void	handle_pixel(int x, int y, t_fractol *fractol)
+static void	handle_pixel_mandel(int x, int y, t_fractol *fractol)
 {
 	t_complex	z;
 	t_complex	c;
@@ -58,14 +58,14 @@ void	handle_pixel(int x, int y, t_fractol *fractol)
 		z = sum_nbr(square_nbr(z), c);
 		if ((z.real_nbr * z.real_nbr + z.im_nbr * z.im_nbr) > fractol->not_valid)
 		{
-			color = map(i, BLACK, WHITE, fractol->defined_img);
+			color = get_color(i, fractol->defined_img, fractol->color_mode);
 			ft_pixel_put(x, y, &fractol->img, color);
 			return;
 		}
 		i++;
 	}
 	/* pontos dentro do conjunto (não escaparam) */
-	ft_pixel_put(x, y, &fractol->img, PURPLE);
+	ft_pixel_put(x, y, &fractol->img, BLACK);
 }
 
 void	mandel_render(t_fractol *fractol)
@@ -79,7 +79,7 @@ void	mandel_render(t_fractol *fractol)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			handle_pixel(x, y, fractol);
+			handle_pixel_mandel(x, y, fractol);
 			x++;
 		}
 		y++;

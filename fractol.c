@@ -44,11 +44,15 @@ int	main(int argc, char **argv)
 		else if(ft_strcmp(argv[1], "julia") == 0)
 		{
 			fractal.name = "Julia";
+			fractal.julia.real_nbr = atod(argv[2]);
+			fractal.julia.im_nbr = atod(argv[3]);
 			fractol_init(&fractal);
-			// render_julia(&fractal);
+			render_julia(&fractal);
 			events_init(&fractal);
 		}else
 			menu_helps();
 	}
+	else
+		menu_helps();
 	return (0);
 }
