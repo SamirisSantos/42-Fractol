@@ -104,7 +104,7 @@ void		ft_pixel_put(int x, int y, t_img *img, int color);
 int			handle_close(t_fractol *data);
 int			handle_input(int keysym, t_fractol *data);
 int			handle_mouse(int button, int x, int y, t_fractol *f);
-int			mouse_julia(int x, int y, t_fractol *f);
+void		events_init(t_fractol *f);
 
 int			ft_strcmp(const char *s1, const char *s2);
 void		ft_putstr(char *s);
@@ -116,5 +116,6 @@ double		map(double unscaled_num, double new_min,
 				double new_max, double old_max);
 
 int			get_color(int iter, int max_iter, int mode);
+void		render(t_fractol *f);
 
 #endif

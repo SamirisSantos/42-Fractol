@@ -12,12 +12,12 @@
 
 #include "fractol.h"
 
-static void	render(t_fractol *f)
+void	events_init(t_fractol *f)
 {
-	if (ft_strcmp(f->name, "Mandelbrot") == 0)
-		mandel_render(f);
-	else if (ft_strcmp(f->name, "Julia") == 0)
-		render_julia(f);
+	mlx_key_hook(f->win_ptr, handle_input, f);
+	mlx_hook(f->win_ptr, CLOSE, 0, handle_close, f);
+	mlx_mouse_hook(f->win_ptr, handle_mouse, f);
+	mlx_loop(f->mlx_ptr);
 }
 
 static void	fractol_destroy(t_fractol *f)
