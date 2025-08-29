@@ -50,11 +50,11 @@ int	handle_input(int keysym, t_fractol *f)
 		f->defined_img += 10;
 	else if (keysym == MINUS)
 		f->defined_img -= 10;
-	else if (keysym == O_KEY) // Cor original
+	else if (keysym == O_KEY)
 		f->color_mode = 0;
-	else if (keysym == P_KEY) // Cor psicodélico
+	else if (keysym == P_KEY)
 		f->color_mode = 1;
-	else if (keysym == I_KEY) // Cor outro
+	else if (keysym == I_KEY)
 		f->color_mode = 2;
 	render(f);
 	printf("The %d key has been pressed\n", keysym);
@@ -86,10 +86,13 @@ int	handle_mouse(int button, int x, int y, t_fractol *f)
 	return (0);
 }
 
-// int	mouse_julia(int x, int y, t_fractol *f)
-// {
-// 	if(ft_strcmp(f->name, "julia") == 0)
-// 	{
-// 		f->julia.real_nbr = map(x, -2)
-// 	}
-// }
+int	mouse_julia(int x, int y, t_fractol *f)
+{
+	if(ft_strcmp(f->name, "Julia") == 0)
+	{
+		f->julia.real_nbr = (map(x, -2, 2, 0, WIN_WIDTH) * f->zoom) + f->offset_x;
+		f->julia.im = (map(y, 2, -2, 0, WIN_HEIGHT) * f->zoom) + f->offset_y;
+		render_julia(f);
+	}
+	return (0);
+}
