@@ -82,7 +82,7 @@ static void koch_curve(t_fractol *f, t_point p1, t_point p5, int iter, double an
 	p3.x = p2.x + (p4.x - p2.x) * cos(angle) - (p4.y - p2.y) * sin(angle);
 	p3.y = p2.y + (p4.x - p2.x) * sin(angle) + (p4.y - p2.y) * cos(angle);
 
-	// 3. Chama a função recursivamente para os 4 novos segmentos
+	//3 - Recursão para os 4 novos segmentos ate iter = 0;
 	draw_koch_curve(f, p1, p2, iter - 1, angle);
 	draw_koch_curve(f, p2, p3, iter - 1, angle);
 	draw_koch_curve(f, p3, p4, iter - 1, angle);
