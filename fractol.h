@@ -66,6 +66,21 @@ typedef struct s_complex
 	double	im_nbr;
 }	t_complex;
 
+typedef struct s_point
+{
+	// point triangle koch
+	int	x;
+	int	y;
+}	t_point;
+
+typedef struct s_koch
+{
+	t_point	point;
+	double	koch_angle;
+	double	delta_x;
+	double	delta_y;
+}	t_koch;
+
 typedef struct s_img
 {
 	// points for image
@@ -94,11 +109,13 @@ typedef struct s_fractol
 	int			defined_img; // rending quality image iterartions_defintion
 	//fractal
 	t_complex	julia;
+	t_koch		koch;
 }	t_fractol;
 
 void		fractol_init(t_fractol *f);
 void		mandel_render(t_fractol *fractol);
 void		render_julia(t_fractol *fractol);
+void		render_koch(t_fractol *fractol);
 void		ft_pixel_put(int x, int y, t_img *img, int color);
 
 int			handle_close(t_fractol *data);
@@ -109,6 +126,7 @@ void		events_init(t_fractol *f);
 int			ft_strcmp(const char *s1, const char *s2);
 void		ft_putstr(char *s);
 double		atod(char *s);
+int			ft_atoi(const char *nptr);
 
 t_complex	square_nbr(t_complex z);
 t_complex	sum_nbr(t_complex z1, t_complex z2);

@@ -13,7 +13,6 @@
 #include "fractol.h"
 
 // [0,799] -> [-2,2]
-// tutorial 1:50:24
 
 double	map(double coord, double new_min, double new_max, double old_max)
 {
