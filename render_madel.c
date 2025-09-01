@@ -58,7 +58,7 @@ static void	handle_pixel_mandel(int x, int y, t_fractol *fractol)
 	{
 		z = sum_nbr(square_nbr(z), c);
 		if ((z.real_nbr * z.real_nbr + z.im_nbr * z.im_nbr)
-			> fractol->not_valid)
+			> fractol->escape_radius_squared)
 		{
 			color = get_color(i, fractol->defined_img, fractol->color_mode);
 			ft_pixel_put(x, y, &fractol->img, color);

@@ -17,7 +17,7 @@ static int	menu_helps(void)
 	ft_putstr("Choose a fractol:\n");
 	ft_putstr("Mandelbrot:   ./fractol mandelbrot\n");
 	ft_putstr("Julia [-2,2]: ./fractol julia <re> <im>\n");
-	ft_putstr("Koch:         ./fractol koch <iterations> <angle>\n");
+	ft_putstr("Koch: [1,7]   ./fractol koch <iterations> \n");
 	exit(EXIT_FAILURE);
 }
 
@@ -42,17 +42,15 @@ static void	init_fractal_type(int argc, char **argv, t_fractol *fractal)
 		fractal->julia.im_nbr = atod(argv[3]);
 	}
 	else if (ft_strcmp(argv[1], "koch") == 0)
+	{
 		fractal->name = "Koch";
-		if (argc == 4)
-		{
+		if (argc == 3)
 			fractal->max_iter = ft_atoi(argv[2]);
-			fractal->koch_angle = atod(argv[3]);
-		}
 		else
-		{
-			fractal.max_iter = 5;
-			fractal.koch_angle = 60.0;
-		}
+			fractal->max_iter = 5;
+		fractal->koch.koch_angle = 60.0;
+		fractal->koch.iter = fractal->max_iter;
+	}
 	else
 		menu_helps();
 }
@@ -61,7 +59,7 @@ int	main(int argc, char **argv)
 {
 	t_fractol	fractal;
 
-	if (argc == 2 || argc == 4)
+	if (argc >= 2 && argc <= 4)
 	{
 		init_fractal_type(argc, argv, &fractal);
 		fractol_init(&fractal);

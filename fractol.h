@@ -27,8 +27,8 @@
 # define WIN_HEIGHT	800
 
 // KEYS 
-# define ESC_KEY		XK_Escape
-# define UP 			XK_Up //65362
+# define ESC_KEY	XK_Escape
+# define UP 		XK_Up //65362
 # define DOWN 		XK_Down //65364
 # define LEFT		XK_Left //65361
 # define RIGHT		XK_Right //65363
@@ -44,12 +44,12 @@
 # define I_KEY		XK_i
 
 // MOUSE
-# define SCROLL_UP	4
+# define SCROLL_UP		4
 # define SCROLL_DOWN	5
 
 // JULIA SET DEFAULT - STARFISH (https://mandel.gart.nz/)
-# define JULIA_STARFISH_REAL		-0.3740
-# define JULIA_STARFISH_IMAG		-0.6597
+# define JULIA_STARFISH_REAL	-0.3740
+# define JULIA_STARFISH_IMAG	-0.6597
 
 //COLORS
 # define BLACK		0x000000
@@ -57,6 +57,7 @@
 # define RED		0xFF0000
 # define GREEN		0x00FF00
 # define BLUE		0x0000FF
+# define PINK		0xFF69B4
 
 typedef struct s_complex
 {
@@ -73,13 +74,30 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+// Koch fractal
+typedef struct s_line
+{
+	int dist_x;
+	int dist_y;
+	int step_x;
+	int step_y;
+	int err;
+	int e2;
+}	t_line;
+
 typedef struct s_koch
 {
 	t_point	point;
+	int		iter;
 	double	koch_angle;
-	double	delta_x;
-	double	delta_y;
 }	t_koch;
+
+typedef struct	s_koch_points
+{
+	t_point p2;
+	t_point p3;
+	t_point p4;
+}	t_koch_points;
 
 typedef struct s_img
 {
@@ -105,28 +123,29 @@ typedef struct s_fractol
 	double		zoom;
 	double		offset_x;
 	double		offset_y;
-	double		not_valid; // hipotenusa
+	double		escape_radius_squared; // hipotenusa
 	int			defined_img; // rending quality image iterartions_defintion
 	//fractal
 	t_complex	julia;
 	t_koch		koch;
 }	t_fractol;
 
-void		fractol_init(t_fractol *f);
-void		mandel_render(t_fractol *fractol);
-void		render_julia(t_fractol *fractol);
-void		render_koch(t_fractol *fractol);
-void		ft_pixel_put(int x, int y, t_img *img, int color);
+void	fractol_init(t_fractol *f);
+void	mandel_render(t_fractol *fractol);
+void	render_julia(t_fractol *fractol);
+void	render_koch(t_fractol *fractol);
+void	ft_pixel_put(int x, int y, t_img *img, int color);
+void	draw_line_bresenham(t_img *img, t_point p1, t_point p2, int color);
 
-int			handle_close(t_fractol *data);
-int			handle_input(int keysym, t_fractol *data);
-int			handle_mouse(int button, int x, int y, t_fractol *f);
-void		events_init(t_fractol *f);
+int		handle_close(t_fractol *data);
+int		handle_input(int keysym, t_fractol *data);
+int		handle_mouse(int button, int x, int y, t_fractol *f);
+void	events_init(t_fractol *f);
 
-int			ft_strcmp(const char *s1, const char *s2);
-void		ft_putstr(char *s);
-double		atod(char *s);
-int			ft_atoi(const char *nptr);
+int		ft_strcmp(const char *s1, const char *s2);
+void	ft_putstr(char *s);
+double	atod(char *s);
+int		ft_atoi(const char *nptr);
 
 t_complex	square_nbr(t_complex z);
 t_complex	sum_nbr(t_complex z1, t_complex z2);

@@ -35,7 +35,7 @@ static void	malloc_error(void)
 
 static void	data_init(t_fractol *fractol)
 {
-	fractol->not_valid = 4;
+	fractol->escape_radius_squared = 4;
 	fractol->defined_img = 42;
 	fractol->offset_x = 0.0;
 	fractol->offset_y = 0.0;

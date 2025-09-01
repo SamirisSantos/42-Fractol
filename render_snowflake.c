@@ -21,7 +21,7 @@ Koch Snowflake: Você não testa cada pixel. Em vez disso, você desenha segment
 
 Algoritmo do Floco de Neve de Koch
 
-A ideia por trás do Koch Snowflake é baseada em um conceito chamado L-System 
+A ideia por trás do Koch Snowflake é baseada em um conceito chamado L-System
 (Sistema de Lindenmayer), que usa um iniciador e uma regra 
 (ou gerador) aplicados recursivamente.
 
@@ -38,58 +38,80 @@ de iterações que você mencionou determina o nível de detalhe do fractal.
 	- Iteração 0: Um triângulo simples
 	- Iteração 1: Cada lado do triângulo se transforma numa forma de "tenda".
 	- Iteração 2: Cada um dos novos segmentos de linha e assim por diante.
-
-*/
-
-// Implementação do algoritmo de Bresenham para desenhar uma linha
-void	draw_line(t_img *img, t_point p1, t_point p2, int color)
-{
-
-
-}
-/*
+---------------------------------------------------------------------------
 p1: ponto inicial, p5: ponto final
 angle: angulo do pico do triangulo,ex: 60° = pi/3 radianos
 iter: numero de interação
+
+Ponto do pico (p3), calculado rotacionando o vetor (p2 -> p4)
+	em torno de p2 pelo ângulo fornecido.
+	A matemática de rotação é: 
+	x' = x*cos(a) - y*sin(a); y' = x*sin(a) + y*cos(a)
 */
-static void koch_curve(t_fractol *f, t_point p1, t_point p5, int iter, double angle)
+
+static t_koch_points	calc_koch_points(t_point p1, t_point p5, double angle)
 {
-	t_point p2;
-	t_point p3;
-	t_point p4;
-	// 1 - Iniciador
-	if (iter == 0)
+	t_koch_points	points;
+	double			delta_x;
+	double			delta_y;
+
+	delta_x = p5.x - p1.x;
+	delta_y = p5.y - p1.y;
+	points.p2.x = p1.x + delta_x / 3;
+	points.p2.y = p1.y + delta_y / 3;
+	points.p4.x = p1.x + (delta_x * 2) / 3;
+	points.p4.y = p1.y + (delta_y * 2) / 3;
+	points.p3.x = points.p2.x + (points.p4.x - points.p2.x) * cos(angle)
+		- (points.p4.y - points.p2.y) * sin(angle);
+	points.p3.y = points.p2.y + (points.p4.x - points.p2.x) * sin(angle)
+		+ (points.p4.y - points.p2.y) * cos(angle);
+	return (points);
+}
+
+static void	koch_curve(t_fractol *f, t_point p1, t_point p5, t_koch koch)
+{
+	t_koch_points	points;
+	int				color;
+
+	if (f->color_mode == 0)
+		color = WHITE;
+	else if (f->color_mode == 1)
+		color = GREEN;
+	else
+		color = PINK;
+	if (koch.iter == 0)
 	{
-		draw_line(&f->img, p1, p5, WHITE);
+		draw_line_bresenham(&f->img, p1, p5, color);
 		return ;
 	}
-	//2 - Gerador
-	// Divida o segmento em três partes iguais.
-	// Calcula os 3 pontos intermediários
-	f->koch.delta_x = p5.x - p1.x;
-	f->koch.delta_y = p5.y - p1.y;
-	// um terço do caminho
-	p2.x = p1.x + f->koch.delta_x / 3;
-	p2.y = p1.y + f->koch.delta_y / 3;
-	// dois terço do caminho
-	p4.x = p1.x + (f->koch.delta_x * 2) / 3;
-	p4.y = p1.y + (f->koch.delta_y * 2) / 3;
-
-	// Ponto do pico (p3), calculado rotacionando o vetor (p2 -> p4)
-	// em torno de p2 pelo ângulo fornecido.
-	// A matemática de rotação é: 
-	//x' = x*cos(a) - y*sin(a); y' = x*sin(a) + y*cos(a)
-	p3.x = p2.x + (p4.x - p2.x) * cos(angle) - (p4.y - p2.y) * sin(angle);
-	p3.y = p2.y + (p4.x - p2.x) * sin(angle) + (p4.y - p2.y) * cos(angle);
-
-	//3 - Recursão para os 4 novos segmentos ate iter = 0;
-	draw_koch_curve(f, p1, p2, iter - 1, angle);
-	draw_koch_curve(f, p2, p3, iter - 1, angle);
-	draw_koch_curve(f, p3, p4, iter - 1, angle);
-	draw_koch_curve(f, p4, p5, iter - 1, angle);
+	points = calc_koch_points(p1, p5, koch.koch_angle);
+	koch.iter--;
+	koch_curve(f, p1, points.p2, koch);
+	koch_curve(f, points.p2, points.p3, koch);
+	koch_curve(f, points.p3, points.p4, koch);
+	koch_curve(f, points.p4, p5, koch);
 }
 
 void	render_koch(t_fractol *fractol)
 {
+	t_point	p1;
+	t_point	p2;
+	t_point	p3;
+	t_koch	koch;
 
+	mlx_clear_window(fractol->mlx_ptr, fractol->win_ptr);
+	p1.x = WIN_WIDTH / 2;
+	p1.y = 100;
+	p2.x = 200;
+	p2.y = WIN_HEIGHT - 200;
+	p3.x = WIN_WIDTH - 200;
+	p3.y = WIN_HEIGHT - 200;
+	koch.iter = fractol->max_iter;
+	koch.koch_angle = fractol->koch.koch_angle * (M_PI / 180.0);
+	koch_curve(fractol, p1, p2, koch);
+	koch_curve(fractol, p2, p3, koch);
+	koch_curve(fractol, p3, p1, koch);
+	mlx_put_image_to_window(fractol->mlx_ptr, fractol->win_ptr,
+		fractol->img.img_ptr, 0, 0);
+	ft_putstr("Koch rendering completed\n");
 }
