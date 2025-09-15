@@ -92,22 +92,50 @@ static void	koch_curve(t_fractol *f, t_point p1, t_point p5, t_koch koch)
 	koch_curve(f, points.p4, p5, koch);
 }
 
+// void	render_koch(t_fractol *fractol)
+// {
+// 	t_point	p1;
+// 	t_point	p2;
+// 	t_point	p3;
+// 	t_koch	koch;
+
+// 	mlx_clear_window(fractol->mlx_ptr, fractol->win_ptr);
+// 	p1.x = WIN_WIDTH / 2;
+// 	p1.y = 100;
+// 	p2.x = 200;
+// 	p2.y = WIN_HEIGHT - 200;
+// 	p3.x = WIN_WIDTH - 200;
+// 	p3.y = WIN_HEIGHT - 200;
+// 	koch.iter = fractol->max_iter;
+// 	koch.koch_angle = fractol->koch.koch_angle * (M_PI / 180.0);
+// 	koch_curve(fractol, p1, p2, koch);
+// 	koch_curve(fractol, p2, p3, koch);
+// 	koch_curve(fractol, p3, p1, koch);
+// 	mlx_put_image_to_window(fractol->mlx_ptr, fractol->win_ptr,
+// 		fractol->img.img_ptr, 0, 0);
+// 	ft_putstr("Koch rendering completed\n");
+// }
+
 void	render_koch(t_fractol *fractol)
 {
 	t_point	p1;
 	t_point	p2;
 	t_point	p3;
 	t_koch	koch;
+	int		base;
+	int		base_h;
 
 	mlx_clear_window(fractol->mlx_ptr, fractol->win_ptr);
+	base = 300 * fractol->koch.scale;
+	base_h = (int)(base * sqrt(3) / 2);
 	p1.x = WIN_WIDTH / 2;
-	p1.y = 100;
-	p2.x = 200;
-	p2.y = WIN_HEIGHT - 200;
-	p3.x = WIN_WIDTH - 200;
-	p3.y = WIN_HEIGHT - 200;
+	p1.y = (WIN_HEIGHT / 2) - (base_h) / 2;
+	p2.x = (WIN_WIDTH / 2) - base / 2;
+	p2.y = (WIN_HEIGHT / 2) + base_h / 2;
+	p3.x = (WIN_WIDTH / 2) + base / 2;
+	p3.y = (WIN_HEIGHT / 2) + base_h / 2;
 	koch.iter = fractol->max_iter;
-	koch.koch_angle = fractol->koch.koch_angle * (M_PI / 180.0);
+	koch.koch_angle = 60.0 * (M_PI / 180.0);
 	koch_curve(fractol, p1, p2, koch);
 	koch_curve(fractol, p2, p3, koch);
 	koch_curve(fractol, p3, p1, koch);
@@ -115,3 +143,4 @@ void	render_koch(t_fractol *fractol)
 		fractol->img.img_ptr, 0, 0);
 	ft_putstr("Koch rendering completed\n");
 }
+

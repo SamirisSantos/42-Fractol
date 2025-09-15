@@ -90,6 +90,7 @@ typedef struct s_koch
 	t_point	point;
 	int		iter;
 	double	koch_angle;
+	double	scale;
 }	t_koch;
 
 typedef struct	s_koch_points

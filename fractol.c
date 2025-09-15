@@ -44,12 +44,10 @@ static void	init_fractal_type(int argc, char **argv, t_fractol *fractal)
 	else if (ft_strcmp(argv[1], "koch") == 0)
 	{
 		fractal->name = "Koch";
-		if (argc == 3)
-			fractal->max_iter = ft_atoi(argv[2]);
-		else
-			fractal->max_iter = 5;
+		fractal->max_iter = 5;
 		fractal->koch.koch_angle = 60.0;
 		fractal->koch.iter = fractal->max_iter;
+		fractal->koch.scale = 1.0;
 	}
 	else
 		menu_helps();
@@ -59,7 +57,7 @@ int	main(int argc, char **argv)
 {
 	t_fractol	fractal;
 
-	if (argc >= 2 && argc <= 4)
+	if (argc >= 2 || argc <= 4)
 	{
 		init_fractal_type(argc, argv, &fractal);
 		fractol_init(&fractal);

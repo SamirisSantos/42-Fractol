@@ -81,11 +81,13 @@ int	handle_mouse(int button, int x, int y, t_fractol *f)
 		if (button == SCROLL_UP)
 		{
 			zoom_factor = 0.95;
+			f->koch.scale *= 0.95;
 			ft_putstr("Zoom in\n");
 		}
 		else
 		{
 			zoom_factor = 1.05;
+			f->koch.scale /= 0.95;
 			ft_putstr("Zoom out\n");
 		}
 		f->zoom *= zoom_factor;
