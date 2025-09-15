@@ -36,7 +36,7 @@ Fórmula:  Z(n+1) = Z(n)^2 + C e Z0 = 0
 Um ponto **C** pertence ao conjunto se a sequência **não tende ao infinito**.  
 
 ### Julia  
-Fórmula:  Z(n+1) = Z(n)^2 + C | **C é fixo**
+Fórmula:  Z(n+1) = Z(n)^2 + C | C é fixo
 
 ```bash
 #Os valores de c real e c imaginario eram fornecido pelo usario via terminal
